@@ -5,11 +5,14 @@ jobs:
   phpunit:
     name: Unit Tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ 8.0, 8.1 ]
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: ${{ matrix.php }}
           coverage: xdebug
           tools: composer:v2
 
@@ -32,14 +35,22 @@ jobs:
   phpstan:
     name: Static Analysis Check
     runs-on: ubuntu-latest
-    container:
-      image: davidalger/php:8.0
+    strategy:
+      matrix:
+        php: [ 8.0, 8.1 ]
     steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+          tools: composer:v2
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Install Dependencies
-        run: composer2 install
+        run: composer install
 
       - name: Run PHPStan
         run: vendor/bin/phpstan
@@ -47,14 +58,19 @@ jobs:
   phpcs:
     name: Code Style (PSR-12)
     runs-on: ubuntu-latest
-    container:
-      image: davidalger/php:8.0
     steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          coverage: xdebug
+          tools: composer:v2
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Install Dependencies
-        run: composer2 install
+        run: composer install
 
       - name: PHP Code Sniffer
         run: vendor/bin/phpcs
@@ -63,11 +79,14 @@ jobs:
     name: Infection Check
     runs-on: ubuntu-latest
     continue-on-error: true
+    strategy:
+      matrix:
+        php: [ 8.0, 8.1 ]
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: ${{ matrix.php }}
           coverage: xdebug
           tools: composer:v2
 
