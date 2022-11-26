@@ -11,7 +11,7 @@ This library contains implementations of PSR-20 that provides a clocks that are 
 
 ## Installation
 
-    composer require navarr/wall-clock:@dev
+    composer require navarr/wall-clock:^1
 
 ## Usage
 
