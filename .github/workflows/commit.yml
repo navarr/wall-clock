@@ -8,7 +8,7 @@ jobs:
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
@@ -33,7 +33,7 @@ jobs:
           tools: composer:v2
 
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: composer install
@@ -65,7 +65,7 @@ jobs:
           tools: composer:v2
 
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: composer install
@@ -109,7 +109,7 @@ jobs:
           tools: composer:v2
 
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Install dependencies
         run: composer install
